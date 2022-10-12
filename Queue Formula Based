@@ -1,0 +1,198 @@
+#include<iostream>
+using namespace std;
+#define maxsize 100
+int queue[maxsize];
+int front=-1,rare=-1;
+int isfull()
+{
+    if(rare==maxsize-1)
+    return 1;
+    else
+    return 0;
+}
+int isempty()
+{
+    if(rare==-1)
+    return 1;
+    else
+    return 0;
+}
+void enqueue(int x)
+{
+    if(isfull())
+    {
+        cout<<"OverFlow";
+        return;
+    }
+    if(rare==-1 && front==-1)
+    {
+        front++;
+        rare++;
+        queue[rare]=x;
+    }
+    else
+    {
+        rare++;
+        queue[rare]=x;
+    }
+}
+void dequeue(int &x)
+{
+    if(isempty())
+    {
+        cout<<"UnderFlow";
+        return;
+    }
+    if(front==rare)
+    {
+        x=queue[front];
+        front=-1;
+        rare=-1;
+    }
+    else
+    {
+        x=queue[front];
+        front++;
+    }
+}
+int first()
+{
+    if(isempty())
+    {
+        cout<<"UnderFlow";
+        exit(1);
+    }
+    else
+    {
+        return queue[front];
+    }
+}
+int last()
+{
+    if(isempty())
+    {
+        cout<<"UnderFlow";
+        exit(1);
+    }
+    else
+    {
+        return queue[rare];
+    }
+}
+void display()
+{
+    if(isempty())
+    {
+        cout<<"No elements";
+    }
+    else
+    {
+        for(int i = front;i<=rare;i++)
+        {
+            cout<<queue[i]<<" ";
+        }
+    }
+}
+void create(int n)
+{
+    if(n<=0 || n>maxsize)
+    {
+        cout<<"Cant Create Queue";
+    }
+    else
+    {
+        for(int i=1;i<=n;i++)
+        {
+            int x;
+            cout<<"Enter "<<i<<" element";
+            cin>>x;
+            enqueue(x);
+        }
+    }
+}
+int main()
+{
+	int choice,x,n;
+    while(1)
+    {
+    	cout<<endl<<endl<<endl;
+    	cout<<"1. Create"<<endl;
+    	cout<<"2. Enqueue"<<endl;
+    	cout<<"3. Dequeue"<<endl;
+    	cout<<"4. Output"<<endl;
+    	cout<<"5. Isfull"<<endl;
+    	cout<<"6. Isempty"<<endl;
+    	cout<<"7. First"<<endl;
+    	cout<<"8. Last"<<endl;
+    	cout<<"9. Exit"<<endl<<endl<<endl<<endl;
+    	cout<<"Enter your choice:";
+    	cin>>choice;
+    	switch(choice)
+    	{
+    		case 1:
+    			{
+    				cout<<"Enter size of stack to form:";
+    				cin>>n;
+    				create(n);
+    				break;
+				}
+			case 2:
+				{
+					cout<<"Enter the data to insert: ";
+					cin>>x;
+					enqueue(x);
+					break;
+				}
+			case 3:
+				{
+					dequeue(x);
+					cout<<"Poped Element:"<<x;
+					break;
+				}
+			case 4:
+				{
+					display();
+					break;
+				}
+			case 5:
+				{
+					x=isfull();
+					if (x==0)
+					cout<<"Space is available to create more elements."<<endl;
+					else
+					cout<<"Space full."<<endl;
+					break;
+				}
+			case 6:
+				{
+					x=isempty();
+					if(x==0)
+					cout<<"Queue is not empty."<<endl;
+					else
+					cout<<"Queue list is empty."<<endl;
+					break;
+				}
+			case 7:
+				{
+					x=first();
+					cout<<"First element:"<<x;
+					break;
+				}
+			case 8:
+				{
+					x=last();
+					cout<<"Last element:"<<x;
+					break;
+				}
+			case 9:
+				{
+					exit(1);
+				}
+			default:
+				{
+					cout<<"Invalid choice."<<endl;
+				}
+		}
+	}
+	return 0;
+}
