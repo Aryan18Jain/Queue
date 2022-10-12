@@ -1,0 +1,214 @@
+#include<iostream>
+using namespace std;
+struct queue{
+    int data;
+    queue *link;
+};
+int isempty(queue * front , queue * rare)
+{
+    if(front==NULL && rare ==NULL)
+    return 1;
+    else
+    return 0;
+}
+int isfull()
+{
+    queue * temp=new queue;
+    if(temp!=NULL)
+    return 0;
+    else
+    return 1;
+}
+queue * enqueue(queue*& front ,int x , queue * rare)
+{
+    if(isfull())
+    {
+        cout<<"OverFlow";
+        return rare;
+    }
+    if(front == NULL && rare ==NULL)
+    {
+        queue * temp=new queue;
+        temp->data=x;
+        temp->link=NULL;
+        front=rare=temp;
+        return rare;
+    }
+    else
+    {
+        queue * temp=new queue;
+        temp->data=x;
+        temp->link=NULL;
+        rare->link=temp;
+        rare=temp;
+        return rare;
+    }
+}
+queue* dequeue(queue* front,int&x,queue*& rare)
+{
+    if(isempty(front,rare))
+    {
+        cout<<"UnderFlow";
+        return front;
+    }
+    if(front==rare)
+    {
+        queue* temp=front;
+        x=front->data;
+        delete(temp);
+        front=rare=NULL;
+        return front;
+    }
+    else
+    {
+        queue* temp=front;
+        x=front->data;
+        front=front->link;
+        return front;
+    }
+}
+int first(queue* front,queue* rare)
+{
+    if(isempty(front,rare))
+    {
+        cout<<"UnderFlow";
+        exit(1);
+    }
+    else
+    {
+        return front->data;
+    }
+}
+int last(queue*front,queue* rare)
+{
+    if(isempty(front,rare))
+    {
+        cout<<"UnderFlow";
+        exit(1);
+    }
+    else
+    {
+        return rare->data;
+    }
+}
+void display(queue * front,queue* rare)
+{
+    if(isempty(front,rare))
+    {
+        cout<<"No elements";
+    }
+    else
+    {
+        while(front!=NULL)
+        {
+            cout<<front->data<<" ";
+            front=front->link;
+        }
+    }
+}
+queue* create(queue*& front,int n,queue* rare)
+{
+    if(n<=0)
+    {
+        cout<<"Cant Create Queue";
+    }
+    else
+    {
+        for(int i=1;i<=n;i++)
+        {
+            int x;
+            cout<<"Enter "<<i<<" element";
+            cin>>x;
+            rare=enqueue(front,x,rare);
+        }
+        return rare;
+    }
+}
+int main()
+{
+	int choice,x,n;
+	queue*front=NULL;
+	queue* rare=NULL;
+    while(1)
+    {
+    	cout<<endl<<endl<<endl;
+    	cout<<"1. Create"<<endl;
+    	cout<<"2. Enqueue"<<endl;
+    	cout<<"3. Dequeue"<<endl;
+    	cout<<"4. Output"<<endl;
+    	cout<<"5. Isfull"<<endl;
+    	cout<<"6. Isempty"<<endl;
+    	cout<<"7. First"<<endl;
+    	cout<<"8. Last"<<endl;
+    	cout<<"9. Exit"<<endl<<endl<<endl<<endl;
+    	cout<<"Enter your choice:";
+    	cin>>choice;
+    	switch(choice)
+    	{
+    		case 1:
+    			{
+    				cout<<"Enter size of stack to form:";
+    				cin>>n;
+    				rare=create(front,n,rare);
+    				break;
+				}
+			case 2:
+				{
+					cout<<"Enter the data to insert: ";
+					cin>>x;
+					rare=enqueue(front,x,rare);
+					break;
+				}
+			case 3:
+				{
+					front=dequeue(front,x,rare);
+					cout<<"Poped Element:"<<x;
+					break;
+				}
+			case 4:
+				{
+					display(front,rare);
+					break;
+				}
+			case 5:
+				{
+					x=isfull();
+					if (x==0)
+					cout<<"Space is available to create more elements."<<endl;
+					else
+					cout<<"Space full."<<endl;
+					break;
+				}
+			case 6:
+				{
+					x=isempty(front,rare);
+					if(x==0)
+					cout<<"Queue is not empty."<<endl;
+					else
+					cout<<"Queue list is empty."<<endl;
+					break;
+				}
+			case 7:
+				{
+					x=first(front,rare);
+					cout<<"First element:"<<x;
+					break;
+				}
+			case 8:
+				{
+					x=last(front,rare);
+					cout<<"Last element:"<<x;
+					break;
+				}
+			case 9:
+				{
+					exit(1);
+				}
+			default:
+				{
+					cout<<"Invalid choice."<<endl;
+				}
+		}
+	}
+	return 0;
+}
