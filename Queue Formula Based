@@ -131,7 +131,7 @@ int main()
     	{
     		case 1:
     			{
-    				cout<<"Enter size of stack to form:";
+    				cout<<"Enter size of Queue to form:";
     				cin>>n;
     				create(n);
     				break;
