@@ -63,6 +63,7 @@ queue* dequeue(queue* front,int&x,queue*& rare)
     {
         queue* temp=front;
         x=front->data;
+        delete(temp);
         front=front->link;
         return front;
     }
@@ -147,7 +148,7 @@ int main()
     	{
     		case 1:
     			{
-    				cout<<"Enter size of stack to form:";
+    				cout<<"Enter size of queue to form:";
     				cin>>n;
     				rare=create(front,n,rare);
     				break;
